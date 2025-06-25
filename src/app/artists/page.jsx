@@ -4,8 +4,9 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import artistsData from "@/data/artists";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
-export default function ArtistsPage() {
+function Content() {
   const searchParams = useSearchParams();
   const initialCategory = searchParams.get("category") || "All";
   const [category, setCategory] = useState(initialCategory);
@@ -96,3 +97,10 @@ export default function ArtistsPage() {
     </div>
   );
 }
+export default function ArtistsPage() {
+    return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <Content />
+      </Suspense>
+    );
+  }
